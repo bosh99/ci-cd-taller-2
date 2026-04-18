@@ -11,7 +11,7 @@ def client():
 def test_index_get(client):
     response = client.get('/')
     assert response.status_code == 200
-    assert b'<!doctype html>' in response.data  # Assuming the HTML template starts with <!DOCTYPE html>
+    assert b'<!doctype html>' in response.data  
 
 def test_index_post_sumar(client):
     response = client.post('/', data={'num1': '2', 'num2': '3', 'operacion': 'sumar'})
