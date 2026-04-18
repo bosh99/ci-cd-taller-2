@@ -16,12 +16,13 @@ def index():
     """
     return render_template("index.html", resultado=None)
 
+
 @app.route("/", methods=["POST"])
 def calculate():
-    '''
-    Esta función maneja las solicitudes POST a la 
+    """
+    Esta función maneja las solicitudes POST a la
     ruta raíz ("/") para realizar cálculos.
-    '''
+    """
     try:
         resultado = None
         num1 = float(request.form["num1"])
@@ -44,6 +45,7 @@ def calculate():
         resultado = "Error: No se puede dividir por cero"
 
     return render_template("index.html", resultado=resultado)
+
 
 if __name__ == "__main__":  # pragma: no cover
     # Quitar debug=True en producción
