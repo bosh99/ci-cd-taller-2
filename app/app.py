@@ -49,4 +49,4 @@ def calculate():
 
 if __name__ == "__main__":  # pragma: no cover
     # Quitar debug=True en producción
-    app.run(debug=True, port=5000, host="127.0.0.1")
+    app.run(debug=False, port=5000, host="127.0.0.1")
