@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def index():
     """
-    Esta función maneja tanto las solicitudes 
+    Esta función maneja tanto las solicitudes
     GET como POST a la ruta raíz ("/").
     """
     resultado = None
@@ -37,5 +37,5 @@ def index():
 
 
 if __name__ == "__main__":  # pragma: no cover
-    # Quitar debug=True en producción 
+    # Quitar debug=True en producción
     app.run(debug=True, port=5000, host="127.0.0.1")
