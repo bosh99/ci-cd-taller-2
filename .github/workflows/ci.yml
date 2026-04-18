@@ -45,7 +45,7 @@ jobs:
         env:
           APP_BASE_URL: http://localhost:8000
         run: |
-          gunicorn --workers=2 --bind=0.0.0.0:8000 app.app:app &
+          uv run gunicorn --workers=2 --bind=0.0.0.0:8000 app.app:app &
           sleep 10
           uv run pytest tests/test_acceptance_app.py --cov-report=xml:acceptance_coverage.xml --html=acceptance_report.html # Genera un informe XML con otro nombre, para no sobre-escribir el anterior de  las pruebas unitarias
 
