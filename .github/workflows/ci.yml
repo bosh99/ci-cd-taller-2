@@ -29,17 +29,17 @@ jobs:
           uv sync --no-cache
 
       - name: Run Black (Formatter)
-        run: black app --check # --check solo verifica, no modifica
+        run: uv run black app --check # --check solo verifica, no modifica
 
       - name: Run Pylint (Linter)
-        run: pylint app --output-format=text --fail-under=9 > pylint-report.txt || true
+        run: uv run pylint app --output-format=text --fail-under=9 > pylint-report.txt || true
 
       - name: Run Flake8 (Linter)
-        run: flake8 app --output-file=flake8-report.txt || true
+        run: uv run flake8 app --output-file=flake8-report.txt || true
 
       - name: Run Unit Tests with pytest and Coverage
         run: |
-          pytest --ignore=tests/test_acceptance_app.py  # Genera un informe XML para SonarCloud
+          uv run pytest --ignore=tests/test_acceptance_app.py  # Genera un informe XML para SonarCloud
 
       - name: Run Acceptance Tests
         env:
@@ -47,7 +47,7 @@ jobs:
         run: |
           gunicorn --workers=2 --bind=0.0.0.0:8000 app.app:app &
           sleep 10
-          pytest tests/test_acceptance_app.py --cov-report=xml:acceptance_coverage.xml --html=acceptance_report.html # Genera un informe XML con otro nombre, para no sobre-escribir el anterior de  las pruebas unitarias
+          uv run pytest tests/test_acceptance_app.py --cov-report=xml:acceptance_coverage.xml --html=acceptance_report.html # Genera un informe XML con otro nombre, para no sobre-escribir el anterior de  las pruebas unitarias
 
       - name: Upload Test Reports Artifacts
         uses: actions/upload-artifact@v4
