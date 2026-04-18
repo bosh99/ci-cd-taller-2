@@ -1,40 +1,49 @@
-# app/app.py
+"""
+Este módulo define la aplicación Flask para la calculadora web.
+"""
+
 from flask import Flask, render_template, request
 from .calculadora import sumar, restar, multiplicar, dividir
 
 app = Flask(__name__)
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
 def index():
     """
     Esta función maneja tanto las solicitudes
     GET como POST a la ruta raíz ("/").
     """
-    resultado = None
-    if request.method == "POST":
-        try:
-            num1 = float(request.form["num1"])
-            num2 = float(request.form["num2"])
-            operacion = request.form["operacion"]
+    return render_template("index.html", resultado=None)
 
-            if operacion == "sumar":
-                resultado = sumar(num1, num2)
-            elif operacion == "restar":
-                resultado = restar(num1, num2)
-            elif operacion == "multiplicar":
-                resultado = multiplicar(num1, num2)
-            elif operacion == "dividir":
-                resultado = dividir(num1, num2)
-            else:
-                resultado = "Operación no válida"
-        except ValueError:
-            resultado = "Error: Introduce números válidos"
-        except ZeroDivisionError:
-            resultado = "Error: No se puede dividir por cero"
+@app.route("/", methods=["POST"])
+def calculate():
+    '''
+    Esta función maneja las solicitudes POST a la 
+    ruta raíz ("/") para realizar cálculos.
+    '''
+    try:
+        resultado = None
+        num1 = float(request.form["num1"])
+        num2 = float(request.form["num2"])
+        operacion = request.form["operacion"]
+
+        if operacion == "sumar":
+            resultado = sumar(num1, num2)
+        elif operacion == "restar":
+            resultado = restar(num1, num2)
+        elif operacion == "multiplicar":
+            resultado = multiplicar(num1, num2)
+        elif operacion == "dividir":
+            resultado = dividir(num1, num2)
+        else:
+            resultado = "Operación no válida"
+    except ValueError:
+        resultado = "Error: Introduce números válidos"
+    except ZeroDivisionError:
+        resultado = "Error: No se puede dividir por cero"
 
     return render_template("index.html", resultado=resultado)
-
 
 if __name__ == "__main__":  # pragma: no cover
     # Quitar debug=True en producción

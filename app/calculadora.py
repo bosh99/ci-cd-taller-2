@@ -1,5 +1,6 @@
-# app/calculadora.py
-
+"""
+Este módulo define las funciones básicas de una calculadora
+"""
 AUTORES = ""
 
 
